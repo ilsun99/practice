@@ -1,0 +1,115 @@
+<!--//* 조건문의 응용 
+<!--// 변수와 비교연산자, 조건문을 입력해보자 
+<!--// prompt('당신의 나이는?'); 
+<!--// -> 입력을 할 수 있는 창이 나옴 alert(prompt('당신의 나이는?')); 
+<!--// alert안쪽에 있는 prompt가 먼저 나옴 
+<!--// prompt에 입력된 값이 alert로 나타남 
+
+<!--* ex1-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      id = prompt("아이디를 입력해주세요.");
+      if (id == "egoing") {
+        alert("아이디가 일치 합니다.");
+      } else {
+        alert("아이디가 일치하지 않습니다.");
+      }
+    </script>
+  </body>
+</html>
+
+<!--* ex2-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      id = prompt("아이디를 입력해주세요.");
+      if (id == "egoing") {
+        var password = prompt("비밀번호를 입력해주세요.");
+        if (password === "111111") {
+          alert("인증 했습니다." + id + "님 반갑습니다.");
+        } else {
+          alert("인증에 실패 했습니다.");
+        }
+      } else {
+        alert("인증에 실패 했습니다.");
+      }
+    </script>
+  </body>
+</html>
+
+<!--* 논리 연산자 
+
+<!-- 1) && if (true && true) { alert(1) } 
+<!-- // 좌항과 우항 모두참이여야 전체가 참이 된다.
+<!--* ex3-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      var id = prompt("아이디를 입력해주세요.");
+      var password = prompt("비밀번호를 입력해주세요.");
+      if (id == "egoing" && password === "111111") {
+        alert("인증 했습니다." + id + "님 반갑습니다.");
+      } else {
+        alert("인증에 실패 했습니다.");
+      }
+    </script>
+  </body>
+</html>
+
+<!-- 2) || 
+    // or 연산자, 둘 중 하나만 참이면 참이다. 
+    
+    if(true || true) { 
+        alert(1) ; }
+
+if(true || true) { 
+    alert(1) ; 
+    
+    if(true || false) { 
+        alert(1) ; } 
+    
+    if(false ||
+flase) { alert(1) ; } // 이 경우만 실패
+
+<!--* ex3-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      id = prompt("아이디를 입력해주세요.");
+      password = prompt("비밀번호를 입력해주세요.");
+      if (
+        (id === "egoing" || id === "k8805" || id === "sorialgi") &&
+        password === "111111"
+      ) {
+        alert("인증 했습니다.");
+      } else {
+        alert("인증에 실패 했습니다.");
+      }
+    </script>
+  </body>
+</html>
+
+<!-- 3) ! not 의 의미로 Boolean의 값을 역전시킨다. 
+
+
+<!-- //* Boolean의 대체제 
+
+<!-- // 관습적인 이유로 0은 false 0이 아니면 true로 간주된다.
+<!-- // false로 간주되는 것들: 빈 문자열은 false로 간주, undefined도 false로 간주, null, NaN도 

@@ -1,0 +1,40 @@
+//* 반복문 loop, iterate
+// 반복적인 작업을 지시하는 방법 
+
+// 1) While 
+while (조건 Boolean) {  // 조건이 true에서 false가 될 때까지 반복 
+    반복해서 실행할 코드 
+}
++ <br /> 은 줄바꿈 
++ document.write('coding everyone'); -> console.log 와 같다. 
+
+ex. 
+while(true) {
+    document.write('coding everybody') ; 
+}
+-> 괄호 안이 true라서 중괄호 안의 작업을 한 번 함
+-> 한 번 실행하고 다시 왔는데 여전히 true라서 계속 함 
+-> true값이 적당한 시점에서 false로 바뀌어야 함 
+
+//* 반복 조건 
+// 반복 조건이 없으면 무한 시행이 된다. 
+
+var i = 0;
+
+while(i < 10) {
+    document.write('coding everybody' + i + '<br />') ; 
+    i = i + 1; 
+}
+
+//* for 문 
+// while문은 크게 세 가지로 구성된다. 변수를 초기화하는 부분, 변수를 바꿔주는 반복 실행 부분, 반복 조건 부분 
+// 이 세 요소가 멀리 떨어지게 되면 오류가 나게 됨 
+// 세 가지를 하나의 문법적인 구문으로 결합할 수 있음 for를 이용하여 
+
+for(var i = 0; i < 10; i = i + 1) {
+    document.write('coding everybody' + i + '<br />') ; 
+}
+// 초기화, 반복 조건, 반복 실행 순서로 입력 
+// i + 1; 과 i++ 는 비슷함 ++i 도 있음 
+// i++와 ++i는 거의 비슷하지만, 전자를 실행 시키면 우선 0이 오고, alert이 실행된 후 1이 증가, 
+// 후자를 실행시키면 1이 증가한 다음 그 값이 alert에 온다. 
