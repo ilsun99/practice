@@ -1,0 +1,87 @@
+//* 함수 
+// 하나의 로직을 재실행할 수 있도록 하는 것으로 코드의 재사용성을 높여준다. 
+
+function 함수명( [인자...[,인자]] ){
+   코드 내용
+   return 반환값
+}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function numbering() {
+        document.write(1);
+        // 함수를 정의한 것
+      }
+      numbering(); // 함수를 호출
+      numbering(); // -> document.write(1); 과 같은 내용
+    </script>
+  </body>
+</html>
+
+
+//* 함수의 효용 
+// 하나의 함수를 만들어 놓으면 수정이 발생할 때 한 번에 가능하다. 
+// 함수와 반복문의 효용의 차이
+// 반복문은 기계적으로 일정한 반복을 그 자리에서 시행
+// 함수는 반복적으로 실행되는 로직이 여러 맥락에서 사용되는 경우
+// 함수의 핵심은 재사용성, 동일한 코드를 여러 곳에서 사용할 수 있도록 만드는 것 
+// 함수만 변경을 하면 그것을 사용하는 모든 곳에서 수정할 수 있다. 유지보수 용이. 
+// 또한 코드의 가독성이 좋아진다. 
+
+// 재사용성, 유지보수의 용이, 가독성이 코딩의 핵심 
+
+
+//* 함수의 입력과 출력
+// return: 출력값. 
+
+function get_member1() {
+  return 'egoing' ;
+}
+
+function get member2() {
+  return 'k000' ;
+}
+
+alert(get_member1()); // 'egoing'
+alert(get_member2()); // 'k000'
+
+// return은 두 가지 역할을 한다. 
+// 1) 함수를 종료한다. return 뒤에 있는 코드는 실행되지 않는다. 
+// 2) 값을 반환한다. return 뒤에 있는 값을 함수의 출력값으로 반환한다. 
+
+
+// 인자: 함수의 입력값 
+function get_argument(arg) {    // arg과 입력과 관련 
+  return arg ; 
+}
+
+alert(get_argument(1));   // 1
+alert(get_argument(2));   // 2
+// get_argument라는 함수를 출력할 때 arg 안에 숫자 1, 2를 입력하라
+// 즉, arg는 변수가 된다.
+
+function get_argument(arg) {    // arg과 입력과 관련 
+  return arg * 1000 ; 
+}
+
+alert(get_argument(1));   // 1000
+alert(get_argument(2));   // 2000
+
+// 여기서 arg를 매개변수, parameter라고 부른다. 
+// 매개 변수에 들어간 값들은 인자, argument라고 부른다.
+
+// 복수의 인자
+function get_argument(arg1, arg2) {    
+  return arg1 + arg2 ; 
+}
+
+alert(get_argument(10, 20));   // 30
+alert(get_argument(20, 30));   // 50
+// 여러개의 입력값 가능, 출력은 하나만 가질 수 있다. 
+
+
