@@ -25,6 +25,23 @@ if (password === "111111") {
   console.log("password fail");
 }
 
+//3
+
+var id = prompt("id please");
+
+if (id === "ilsun") {
+  // if 다음에 ; 붙이면 안 된다!
+  var password = prompt("password please");
+  if (password === "990220") {
+    // 여기서 그냥 =를 쓰면 안 된다!
+    alert("login success");
+  } else {
+    alert("login fail");
+  }
+} else {
+  alert("logiin fail");
+}
+
 // loop
 var i = 0;
 
@@ -38,4 +55,12 @@ var i = 0;
 while (i < 10) {
   document.write("number" + i + "<br />");
   i = ++i;
+}
+
+for (var i = 0; i < 10; i = i + 1) {
+  document.write("hellow!" + i + "<br />");
+
+  for (var i = 0; i < 10; i++) {
+    document.write("coding everybody" + i + "<br />");
+  }
 }
