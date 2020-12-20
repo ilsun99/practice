@@ -85,3 +85,22 @@ alert(get_argument(20, 30));   // 50
 // 여러개의 입력값 가능, 출력은 하나만 가질 수 있다. 
 
 
+//* 함수의 다양한 정의 방법
+// 변수에 함수를 대입하는 방법 
+var numbering = function (){
+    i = 0;
+    while(i < 10){
+        document.write(i);
+        i += 1;
+    }   
+}
+numbering();
+
+// 이 방법도 가능 -> 익명함수, 이름 없이 바로 실행 
+(function (){
+    i = 0;
+    while(i < 10){
+        document.write(i);
+        i += 1;
+    }   
+}) (); 
