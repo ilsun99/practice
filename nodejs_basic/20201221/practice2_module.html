@@ -1,0 +1,23 @@
+<!-- // 이 함수가 하나의 페이지 안에서 50번 호출되고, 
+// 다른 수십 개의 html 파일이 이 함수를 호출한다고 해보자. 
+// 이 경우 우선 이 페이지의 크기가 굉장히 커진다.
+// 이 함수를 빼고 다른 별도의 파일로 만든 다음 불러오는 방법으로 양을 줄일 수 있다. -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="sample1.js"></script>
+    <!-- 여기 사이에 들어간다.-->
+    <!-- <script type="text/javascript" src="sample1.js"></script>-->
+  </head>
+  <body>
+    <script>
+      alert(wlcome());
+    </script>
+  </body>
+</html>
+
+<!--// 이 웹페이지가 출력될 때 script라는 태그를 만나면 그 태그에 src라는 속성이 있는지 확인한다. 
+// 그 속성에 어떤 값이 있다면 그 값에 해당하는 파일을 읽어와서 script라고 된 부분을 <>와 <> 사이에 삽입한다. 
+// 파일 안에 있는 자바스트립트 코드를 저 안에 넣은 것과 같은 효과-->

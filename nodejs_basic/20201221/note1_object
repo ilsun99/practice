@@ -10,7 +10,7 @@
 // 방법 1)
 var grades = {'ilsun' : 10, 'yun' : 6, 'sunny' : 80};
 // 문자가 인덱스가 된다. 
-// 인덱스에 해당되는 값이 숫자, 다른 데이터타입도 괜찮음  
+// 문자 인덱스에 할당된 값이 숫자, 다른 데이터타입도 괜찮음  
 
 // 방법 2) 
 var grades = {};
@@ -74,7 +74,7 @@ for(key in grades) {
 }
 
 
-// for in 문 배열에서도 활용 가공하는능
+// for in 문 배열에서도 활용 가능
 for(var name on arr) {
     console.log(name);
 }
