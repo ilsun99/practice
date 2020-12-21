@@ -1,0 +1,86 @@
+//* 객체 object 의 문법 
+// 배열과 유사한 문법, 연관된 데이터를 담는 그릇 
+// 배열은 아이템에 대한 식별자로 숫자를 사용함 
+// 인덱스를 문자로 사용하고 싶다면 객체를 사용 
+// first, second, --- 등의 문자가 index가 될 수 있음 
+// cf) 다른 언어에서는 연관배열, 맵, 딕셔너리 등등의 데이터 타입 
+// 객체지향이라는 패러다임과 중요하게 연결 
+
+// 객체의 생성 
+// 방법 1)
+var grades = {'ilsun' : 10, 'yun' : 6, 'sunny' : 80};
+// 문자가 인덱스가 된다. 
+// 인덱스에 해당되는 값이 숫자, 다른 데이터타입도 괜찮음  
+
+// 방법 2) 
+var grades = {};
+grades['ilsun'] = 10; 
+grades['yun'] = 6; 
+grades['sunny'] = 80;
+
+//방법 3) 
+var grades = new Obect();
+grades['ilsun'] = 10; 
+grades['yun'] = 6; 
+grades['sunny'] = 80;
+
+// 객체 불러오기 
+grades['ilsun']
+// 10 
+grade.ilsun 
+// 이것도 동일
+grade['il' + 'sun'] 
+// 이것도 동일 
+
+// 필요에 따라서 대괄호를 써야할 때가 있다. 
+// 객체 안에서 key와 value라는 말을 쓰는 것이 좋다.
+// ilsun이 key면 10은 value 
+
+
+//* 객체와 반복문 
+var = arr ['a', 'b', 'c'];
+
+// 배열의 경우 저장된 데이터들이 순서를 가지고 있다. 
+for(var i = 0; i < arr.length; i++) {
+    console.log(arr[1]); 
+}
+// but 객체 안에 저장된 정보들은 순서가 없고 key와 value만 있다. 
+// 객체를 사용할 때에는 순서가 없다는 것을 인지해야 한다. 
+
+// 객체를 사용할 때에는 for in문을 사용하게 된다. 
+var grades = {'egoing': 10, 'k8805': 6, 'sorialgi': 80};
+for(key in grades) {
+    document.write("key : "+key+" value : "+grades[key]+"<br />");
+}
+
+// grades라는 변수가 가르키는 값들을 하나씩 가져와서 key안에 담는다. 
+// 이때 key값만 담긴다. key라는 변수가 생기고, 이는 객체를 구성하는 key값들이 된다. 
+var grades = {'egoing': 10, 'k8805': 6, 'sorialgi': 80};
+for(var name in grades) {
+    console.log(key); 
+}
+// egoing, k8805, sorialgi 가 출력됨 
+
+var grades = {'egoing': 10, 'k8805': 6, 'sorialgi': 80};
+for(key in grades) {
+    console.log(grades[key]); 
+}
+// 10, 6, 80 
+
+// 리스트 만들
+var grades = {'egoing': 10, 'k8805': 6, 'sorialgi': 80};
+for(key in grades) {
+    document.write("<li>"+"key : "+key+" value : "+grades[key]+"</li>");
+}
+
+
+// for in 문 배열에서도 활용 가공하는능
+for(var name on arr) {
+    console.log(name);
+}
+// 0, 1, 2 
+
+for(var name on arr) {
+    console.log(arr[name]);
+}
+// a, b, c 
