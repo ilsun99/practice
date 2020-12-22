@@ -1,1 +1,91 @@
-# 정규표현식 regular expression 
+//* 정규표현식 regular expression 
+// 문자열에서 특정한 문자를 찾아내는 도구 
+// 정규표현식은 하나의 언어라고 할 수 있다. 
+// 여기서는 정규표현식의 개념을 공부, 자바스크립트에서 어떻게 사용하는지를 공부 
+
+// 정규표현식이 하는 일
+// 텍스트 안에 특정 텍스트를 찾아내거나 여러 정보 중 패턴에 해당되는 것을 찾아내어 치환
+
+// 자바스크립트에서 정규표현식을 사용하는 방법
+// 1) 컴파일 
+// 우리가 필요한 대상을 찾는 것, 패턴을 찾는 것 
+// 1-1) 정규표현식 리터럴 
+// var str = "a"; 
+// var pattern = /a/; -> 슬래시 사이의 a가 우리가 찾는 대상이라는 것을 알려준다. 
+// 찾는 대상을 pattern이라는 변수에 담은 것 
+// 1-2) 정규표현식 객체 생성자
+// var pattern = new RegExp('a'); 
+
+// 2) 실행 
+// 우리가 찾은 패턴, 대상에 대해 작업을 하는 것 
+// 2-1) 패턴에 해당하는 정보 추출 RegExp.exec()
+console.log(pattern.exec('abcdef')); // ['a']
+// -> 이때 .은 하나의 문자를 의미. a.으로 변수를 바꾸면 ab가 추출 
+// -> 찾고자 하는 대상이 없으면 null을 리턴 
+
+// 2-2) 확인하고자 하는 정보가 있는지 테스트 RegExp.exec()
+// 이 경우 찾는 정보가 있으면 true를, 아니면 false를 리턴 
+pattern test('abcde'); 
+
+// 2-3) 해당 정보를 다른 정보로 치환 
+
+// String과 정규표현식 
+// 1) String.match(): RegExp.exec() 와 비슷함 
+var pattern = /a/;
+var str = 'abcdef';
+str.match(pattern); 
+// ['a'] 
+
+// String.replace() 치환
+var pattern = /a//;
+var str = 'abcdef';
+str.replace(pattern, 'A');
+// "Abcdef" 
+
+// 옵션
+// 1) i : 대소문자를 구분하지 않는다. 
+var xi = /a/; 
+console.log("Abcde.match(xi)); //null 
+var oi = /a/i; 
+console.log("Abcde".match(oi)); // ["A"]
+
+// 2) g : 문자열에 포함된 패턴에 해당되는 문자열을 전부 배열 
+var xg = /a/; 
+console.log("abcdea.match(xg)); // ['a'] 
+var og = /a/g; 
+console.log("abcdea".match(og)); // ["a", "a"]
+
+// 옵션은 여러 개를 같이 사용할 수도 있다. 
+var ig = /a/ig;
+"abcdeAa".match(ig);
+// ["a", "A", "a"]
+
+
+// 캡처: 그룹을 지정해서 그 지정된 그룹을 사용 (\w+)\s(\w+) 
+// () : 그룹 
+// w : 문자 
+// + : 수량자, 하나 이상 
+// \s : 공백
+// /(\w+)\s(\w+)/g 
+// coding everybody는 검출, codingeverybody는 선택되지 못함 
+
+var pattern = /(\w+)\s(\w+)/;
+var str = "coding everybody";
+var result = str.replace(pattern, "$2, $1");
+console.log(result); 
+// everybody, coding -> 순서가 바뀌고 콤마가 생김 
+// 문자를 pattern으로 치환하는데, 뒤에 있는 값으로 치환 
+// $라는 기호는 특수한 의미를 가짐, $2는 두 번째 그룹 의미, $1은 첫 번째 그룹 
+// $2, $1 으로 replace된 것 
+
+// 치환: 특정 데이터를 다른 것으로 바꿈 
+// 우선 패턴을 정의해야 한다. 
+// 패턴에 해당되는 텍스트를 찾을 때마다 함수로 바꾸어 준다. 
+// 텍스트를 함수의 인자로 전달하는 것 
+// 텍스트를 받아 함수식에 따라 가공하여 리턴 
+var urlPattern = /\b(?:https?):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*/gim;
+var content = '생활코딩 : http://opentutorials.org/course/1 입니다. 네이버 : http://naver.com 입니다. ';
+var result = content.replace(urlPattern, function(url){
+    return '<a href="'+url+'">'+url+'</a>';
+});
+console.log(result);
