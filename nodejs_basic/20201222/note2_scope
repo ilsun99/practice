@@ -1,0 +1,98 @@
+// 지금까지 공부한 것이 모든 프로그래밍 언어의 공통적인 기본 
+// 지금부터 자바스크립트의 중요한 특성인 함수를 살펴볼 것 
+// 자바스크립트는 함수형 언어 
+
+//* 유효범위, 변수의 수명 
+
+// 전역변수 global variables
+var vscope = 'global';
+function fscope(){
+    alert(vscope);
+}
+fscope();
+
+// 이 함수는 함수 밖에서 정의된 변수에 접근할 수 있다.
+
+// 지역변수 local variables 
+var vscope = 'global';
+function fscope(){
+    var vscope = 'local'; 
+    alert(vscope);
+}
+fscope();
+
+// 이 결과는 local이다. 자신과 가까운 곳에 정의된 변수를 불러온다. 
+// 함수 안에 정의된 변수가 없으면 바깥에서 찾는다. 
+// 지역변수는 함수의 중괄호 안쪽에서만 접근할 수 있는 변수 
+
+var vscope = 'global';
+
+function fscope() { 
+    alert(vscope);
+}
+function fscop2() {
+    alert(vscope);
+}
+fscope();
+fscope2(); 
+
+// global 이 두 번 실행된다. 
+
+var vscope = 'global';
+
+function fscope() {
+    var vscope = 'local'; 
+    var lv = 'local variables';
+    alert(vscop);
+}
+fscope();  // local variables
+alert(lv); // undefined 
+// lv는 지역변수라서 함수 내에서만 접근이 가능하다 
+
+// var 유무 차이
+var vscope = 'global';
+
+function fscope() {
+    var vscope = 'local'; 
+}
+fscope(); 
+alert(vscope); 
+// global이 산출된다. 
+
+var vscope = 'global';
+
+function fscope() {
+    vscope = 'local'; 
+}
+fscope(); 
+alert(vscope); 
+// 이 경우 local이 산출된다.
+// 로컬 변수를 만들 때 var이라는 키워드를 쓰면 로컬 변수가 된다. 
+// var을 쓰지 않으면 local이 글로벌 변수가 되어버린다 
+
+var vscope = 'global';
+
+function fscope() {
+    var vscope = 'local';
+    vscope = 'local'; 
+}
+fscope(); 
+alert(vscope); 
+// 이 경우 global이 호출된다. 
+// 함수 내의 변수는 로컬 변수가 있는지를 먼저 확인한다. 
+// 이미 지역 변수가 있는 경우에는 지역 변수로 인식한다.
+
+// 왜 전역 변수를 사용해야하는지 인지하지 못하게 되어있다면 지역변수를 사용해야 한다.
+// var은 함수 밖에서 실행하면 전역변수가 되고, 안에서 쓰게 되면 지역변수가 된다. 
+
+
+// 유효범위의 필요성, 지역변수의 효용
+
+function a (){
+    var i = 0; //결과 01234
+    // i=0; // 결과 무한반복
+}
+for(var i = 0; i < 5; i++){
+    a();
+    document.write(i);
+}
