@@ -1,0 +1,101 @@
+// 유효범위의 필요성, 지역변수의 효용
+
+function a (){
+    var i = 0; //결과 01234
+    i=0; // 결과 무한반복
+}
+
+for(var i = 0; i < 5; i++){
+    a();
+    document.write(i);
+}
+
+// for문 안에 들어 있는 i의 값은 전역변수이다. 
+// 그런데 함수 a를 실행하면 var가 없는 경우 i의 값이 전역변수가 된다. 
+// a가 실행될 때마다 i의 값이 0으로 초기화되기 때문에 for문이 무한 반복하게 된다. 
+// 이런 문제를 해결하기 위해 전역변수와 지역변수가 생긴 것 
+
+
+//* 전역변수의 사용 
+// 불가피하게 전역 변수를 사용해야 하는 경우
+// -> 하나의 객체를 전역변수로 만들고 객체의 속성으로 변수를 관리하는 방법을 사용 
+
+var MYAPP = {} // 전역변수, 값은 객체 
+MYAPP.calculator = { 
+    'left' : null,
+    'right' : null
+}
+// 객체 안에 있는 변수를 속성이라고 한다. calculator라는 속성을 갖는다.
+
+MYAPP.coordinate = {
+    'left' : null,
+    'right' : null
+}
+ 
+MYAPP.calculator.left = 10;
+MYAPP.calculator.right = 20;
+function sum(){
+    return MYAPP.calculator.left + MYAPP.calculator.right;
+}
+document.write(sum()); //30 
+
+// MYAPP이라는 전역 변수 하나만 생성
+// 필요에 따라 사용해야 하는 변수들을 MYAPP이라는 객체에 넣어두는 것 
+// 자신이 쓰는 전역변수를 하나만 생성해놓고, 나머지 변수는 전역 변수에 포함 
+
+// 전역변수 하나도 사용하지 않는 방법
+
+(function(){
+    var MYAPP = {}
+    MYAPP.calculator = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.coordinate = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.calculator.left = 10;
+    MYAPP.calculator.right = 20;
+    function sum(){
+        return MYAPP.calculator.left + MYAPP.calculator.right;
+    }
+    document.write(sum());
+}())
+
+// MYAPP은 함수 안에서 선언된 변수가 된다. 더 이상 전역 변수가 아니라 함수의 지역변수다. 
+// 익명함수를 사용해서 정의하고 바로 호출하면 된다.
+// 많은 라이브러리에서 이런 방식을 사용한다. 
+
+//* 유효범위의 대상 (함수) 
+// 자바스크립트는 함수에 대한 유효범위만을 제공한다. 
+// 그냥 중괄호 안에 있는 변수는 전역 변수가 된다. 
+
+
+//* 정적 유효범위 
+// 자바스크립트는 함수가 선언된 시점에서의 유효범위를 갖는다.
+// 이러한 방식을 정적 유효범위, 또는 렉시컬이라고 한다. 
+// 이는 이후 클로저와 연결되어 있다. 
+
+var i = 5;
+
+frunction a() {
+    var i = 10; 
+    b();
+}
+
+function b(){
+    doocument.write(i);
+}
+
+a();
+// 이때 함수 b의 i라는 변수는 무엇이 되는지
+// i는 함수 b안에 있는 변수를 먼저 찾는다. 
+// 발견하지 못하면 이후 함수 a에 있는 변수에 접근하는지 전역변수 var i 에 접근하는지
+// -> 맨 위의 var i에 접근한다. 
+// 함수 b가 선언된 시점에서 i의 전역변수가 사용되는 것이지 함수 b가 호출된 시점에서 담겨져 있는 함수의 지역변수가 사용되는 것이 아님
+// 사용될 때가 아니라 정의될 때의 전역변수가 사용된다. 
+// 이런 것을 정적 유효범위라고 한다.
+// 사용되는 대상에 따라 대상이 가진 변수에 접근 가능하면 동적 유효범위
+// 메소드가 정의되는 시점의 변수에 접근하면 누가 사용하든 같은 결과를 갖기 때문에 정적 유효범위위
+
