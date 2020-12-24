@@ -1,0 +1,48 @@
+//* 값으로서의 함수와 콜백 
+// 자바스크립트에서는 함수로 객체이다. 
+// 함수도 값이다. 
+// 값의 특징 
+// 1) 어떤 변수에 담을 수 있다. 
+
+function a() {}
+// 이 함수는 a라는 값에 담겨진 것 
+var a = function () {} 
+
+// 2) 어떤 객체의 값으로 포함될 수 있다. 
+// 객체의 속성 값으로 담겨진 함수를 메소드라고 부른다. 
+a = {
+    b:function() {
+    }
+};
+// 객체 안에서 key, b는 변수와 같은 역할을 한다. 
+// 값을 저장하고 있기 때문에 
+// 객체 안에서 변수의 역할을 하는 것을 속성 property라고 한다.
+// 속성에 저장된 값이 함수이면 메소드라고 한다. 
+// a라는 객체 안에 담긴 b라는 속성이 있는데 그 값이 함수면 메소드 
+
+// 함수는 값이기 때문에 다른 함수의 인자로도 전달될 수 있다. 
+
+function cal(func, num) {
+    return func(num)
+}
+// 첫 번째 인자로 func, 두 번째 인자로 num을 받게 된다. 
+// 첫 번째 인자인 함수를 호출하면서 두 번째 담긴 인자를 함수의 인자로 전달한다는 의미 
+
+furntion increse(num) {
+    return num+1
+}
+function decrease(num) {
+    return num-1
+}
+alert(cal(increase, 1));
+alert(cal(decrease, 1));
+
+// Increase, decrease 또한 함수 이것을 func라는 변수에 전달 
+// var func = increase(num) { 
+    return num+1
+}
+// 이것을 cal 함수가 인자로 담고 있는 것 
+// increse라고 하는 함수의 값을 func에 전달
+// 즉 return increse(1) 임 
+// 1+1 이기 때문에 2가 산출됨 
+
