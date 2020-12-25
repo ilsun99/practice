@@ -1,0 +1,110 @@
+//* 클로저 
+// 내부함수가 외부함수의 맥락에 접근할 수 있는 것 
+// 자바스크립트를 이용한 고난이도 테크닉을 구사하는데 필수적인 개념
+
+// 내부함수 
+// 자바스크립트는 함수 안에 또 다른 함수를 선언할 수 있다.
+function outter() {
+    function inner {
+        var title = 'coding everybody'; 
+        alert(title);
+    }
+    inner();
+}
+outter(); 
+// 여기서 inner가 내부함수, outter가 외부함수 
+// 어떤 함수 안에서만 사용하는 함수를 선언할 때 사용 
+// 내부함수는 외부함수의 지역변수에 접근할 수 있다. 
+// 내부함수에 변수가 없으면 외부함수에서 찾는다. 
+
+
+// 클로저는 내부함수와 관련 있다.
+// 외부함수가 더이상 사용 안 되어도 
+// 내부함수는 외부함수의 지역변수에 접근할 수 있다. 
+// 외부함수의 실행이 끝나서 외부함수가 소멸된 이후에도 내부함수가 외부함수에 접근할 수 있다. 
+// 이런 메커니즘을 클로저라고 한다. 
+
+function outter() {
+        var title = 'coding everybody'; 
+        return function() {
+        alert(title);
+    }
+}
+inner = outer();
+inner();
+// 리턴을 하면 함수는 종료됨
+// 그러나 inner를 호출하면 외부함수도 접근 가능 
+// var title은 외부함수에 정의된 것이지만 접근되고 있다 
+
+// private 변수 
+// 어떤 정보가 있을 때 정보를 아무나 수정하는 것을 방지 
+
+function factory_movie(title){
+    return {
+        get_title : function (){
+            return title;
+        },
+        set_title : function(_title){
+            if(typeof _title === 'Stiring') {
+            title = _title
+            } else {
+                alert('제목은 문자여야 합니다.');
+            }
+        }
+    }
+}
+// 객체에 정의된 메소드들이 내부함수인 것
+// 메소드들이 소속이 객체일 뿐 내부함수이다. 
+// 외부함수의 지역변수에 접근할 수 있다. 
+
+ghost = factory_movie('Ghost in the shell');
+matrix = factory_movie('Matrix');
+ 
+alert(ghost.get_title());
+alert(matrix.get_title());
+ 
+ghost.set_title('공각기동대');
+ 
+alert(ghost.get_title()); // 공각기동대 
+alert(matrix.get_title()); // metrix 
+
+// gost.set_title('공각기동대') 는 함수의 지역변수를 변경한다. 
+// title은 factory_movie라는 함수의 지역변수인데, 이 함수는 종료되었다. 
+// 따라서 이 변수는 get_title과 set_title밖에 접근하지 못한다. 
+// 이런 변수가 비밀변수이다. 
+// title이라는 변수를 수정할 수 없기 때문에 안정적 
+
+
+// 클로저의 응용 
+// 클로저에서 흔히 일어날 수 있는 실수 
+var arr = []
+for(var i = 0; i < 5; i++){
+    arr[i] = function(){
+        return i;
+    }
+}
+for(var index in arr) {
+    console.log(arr[index]());
+}
+
+
+// 해결 
+var arr = []
+for(var i = 0; i < 5; i++){
+    arr[i] = function(id) {
+        return function(){
+            return id;
+        }
+    }(i);
+}
+for(var index in arr) {
+    console.log(arr[index]());
+}
+
+/* 결과
+0
+1
+2
+3
+4
+*/

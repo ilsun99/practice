@@ -1,0 +1,28 @@
+//* apply 
+// 함수의 호출 
+// 자바스크립트에서 함수는 객체이다. 
+// 객체는 속성들을 가지고 있다. 
+// 속성에 함수가 있으면 그것은 메소드라고 부른다. 
+
+function func() {
+}
+func(); 
+// func라는 함수를 정의하면 func.apply 또는 func.call에 접근 가능 
+// 이것들의 역할은 func를 호출하는 것이다. 
+
+function sum(arg1, arg2){
+    return arg1 + arg2;
+}
+sum(1, 2);
+sum.apply()
+sum.call()
+// 같은 취지지만 사용법이 다름 
+// apply는 sum에 담긴 메소드 
+// apply는 
+
+sum.apply(null, [1, 2]); // 3
+sum.apply(null, [4, 2]); // 6
+// 두 번째 인자로 전달된 배열을 인자로 받는다. 
+// 첫 번째 인자로 null이 아니라 다른 것을 사용할 수 있다. 
+
+// apply 사용법 
