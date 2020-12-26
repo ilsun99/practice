@@ -1,0 +1,108 @@
+//* 전역객체 
+// 모든 객체는 이 전역객체의 property이다. 
+// 함수 앞에 뭔가 있고. 이 있으면 객체를 나타낸다. 
+// 이 객체에 담긴 것이 함수고, 그렇기에 메소드라고 한다. 
+// ex. window.func() ; 이런 것이 메소드 
+// window라는 전역객체를 생략해도 함수가 호출되도록 함 
+// 모든 함수는 window라는 객체에 소속된 property이다. 
+
+var o = {'func': function() {
+    alert('hello');
+}} 
+o.func();
+window.o.func(); 
+
+// 전역객체의 api
+// 이는 호스트 환경에 따라 달라진다. window가 아니라 global이 존재 
+
+
+//* this 
+// this는 함수 내에서 함수 호출 맥락을 의미 
+// 맥락은 ㅎ상황에 따라 달라진다는 의미인데 함수를 어떻게 호출하냐에 따라 this가 가리키는 대상이 달라진다. 
+// 함수와 객체의 관계가 느슨한 자바스크립트에서 this는 둘을 연결시켜주는 역할을 한다. 
+
+function func() {
+    if(window === this) {
+        document.write("window === this");
+    }
+}
+// window와 this안에 담겨있는 값이 같다. 
+// this는 함수 안에서 전역객체를 의미하는 window를 의미한다. 
+
+// 메소드의 호출 
+// 객체의 소속인 메소드의 this는 그 객체를 가리킨다. 
+var o = {
+    func : function() {
+        if(o === this) {
+            document.write('o === this') ;
+        }
+    }
+}
+o.func(); 
+// 어떠한 메소드에서 그 메소드가 소속되어있는 객체를 this로 접근할 수 있다. 
+// this를 호출할 때 window를 가리키는 것과 그 메소드가 소속된 o를 가리키는 것은 동일
+
+//* 생성자와 this
+// 함수 안에서 this는 함수가 소속된 객체를 가리킨다. 
+
+var funcThis = null; 
+ 
+function Func(){
+    funcThis = this;
+}
+var o1 = Func(); // this가 변수에 할당됨 
+if(funcThis === window){
+    document.write('window <br />');
+}
+ 
+var o2 = new Func();
+if(funcThis === o2){
+    document.write('o2 <br />');
+}
+// 생성자 안에서 this는 생성자가 만들 객체를 가리킨다. 
+
+
+// apply와 call
+// 기본적으로 함수는 객체이다. 
+// var sum = new Function('x', 'y', 'return x+y;');
+// sun이라고 하는 함수 객체를 만든다. 
+// 이 과정이 어려우니 문법적으로 함수를 만드는 것
+// 함수 리터럴이라고 함 
+// var 0 = {} 는 객체 리터럴 
+
+var o = {}
+var p = {}
+function func(){
+    switch(this){ 
+        case o:
+            document.write('o<br />');
+            break;
+        case p:
+            document.write('p<br />');
+            break;
+        case window:
+            document.write('window<br />');
+            break;          
+    }
+}
+func();
+// 이때 this의 값은 window를 의미한다. 
+
+func.apply(o);
+// apply를 실행하면 첫 번째 인자로 함수 호출 맥락을 준다. 
+// this는 o가 된다. 
+
+func.apply(p);
+// this의 값은 p를 의미하게 된다. 
+
+// switch문 괄호 안에 어떤 값이 들어가면 그 값과 같은 케이스의 구간이 실행
+// break를 만날 때까지 실행된다. 
+// if문의 대체제라고 할 수 있다. 좀 더 조건을 잘 나열할 수 있다. 
+
+// 전통적인 객체지향에서 메소드는 객체에 종속됨 
+// 메소드는 객체에 고정되어 다른 곳에 갈 수 없다. 
+// 하지만 자바스크립트는 유연하다. 
+// window, o, p라는 객체가 있고 함수는 하나인데 apply를 통해 다른 맥락에서 호출할 수 있다.
+// 함수가 여러 객체에 소속될 수 있는 것 
+// this는 변화무쌍하다.
+

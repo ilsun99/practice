@@ -3,3 +3,91 @@
 // 자바스크립트는 독특한 객체지향 접근법을 가지고 있다. 
 // Prototype-Based programming 
 // 자바스크립트는 자유롭고 유동적인 스타일의 객체지향을 가짐 
+// 객체는 하나하나가 독립성을 갖게 됨 
+
+// 객체를 만드는 법 
+
+var person = {} // 객체를 만드는 표시 
+person.name = 'egoing';
+person.introduce = function(){
+    return 'My name is '+this.name;
+}
+document.write(person.introduce());
+// 객체에 담긴 변수는 property라고 부름 
+// property에 함수가 담기면 메소드라고 함 
+// 위의 코드는 객체를 정의하는 부분의 집중도가 떨어진다. 
+
+var person = {
+    'name' : 'egoing',
+    'introduce' : function(){
+        return 'My name is '+this.name;
+    }
+}
+document.write(person.introduce());
+// 그래서 이러한 방법을 사용한다. 
+
+// 이 person이라는 정보를 여러개 만들어서 여러 사람의 정보를 담는다고 해보자.
+var person1 = {
+    'name' : 'egoing',
+    'introduce' : function(){
+        return 'My name is '+this.name;
+    }
+}
+document.write(person1.introduce()); 
+
+var person2 = {
+    'name' : 'ilsun',
+    'introduce' : function(){
+        return 'My name is '+this.name;
+    }
+}
+document.write(person2.introduce());
+// 내용이 중복이 있다. 
+// 하나를 수정해야 하면 전체를 찾아 똑같이 바꿔주어야 한다. 
+// 이 중복을 줄이는 방법이 생성자와 new 
+
+// 생성자: 객체를 만드는 역할을 하는 함수이다. 
+// 자바스크립트에서 함수는 재사용 가능한 로직의 묶음이 아니라 객체를 만드는 창조자 
+
+function Person(){}
+var p = new Person();
+p.name = 'egoing';
+p.introduce = function(){
+    return 'My name is '+this.name; 
+}
+
+document.write(p.introduce());
+// 함수를 호출할 때 new를 붙이면 새로운 객체를 만든 후에 리턴한다. 
+// 위 코드는 새로운 객체를 변수 p에 담았다. 
+// 이때 new는 객체의 생성자이다. 
+// var p = {} 와 비슷한 작업이다. 
+
+function Person(){}
+var p1 = new Person();
+p1.name = 'egoing';
+p1.introduce = function(){
+    return 'My name is '+this.name; 
+}
+document.write(p1.introduce()+"<br />");
+ 
+var p2 = new Person();
+p2.name = 'leezche';
+p2.introduce = function(){
+    return 'My name is '+this.name; 
+}
+document.write(p2.introduce());
+// p1과 p2에서 중복이 일어나고 있다. 
+
+function Person(name){
+    this.name = name;
+    this.introduce = function(){
+        return 'My name is '+this.name; 
+    }   
+}
+var p1 = new Person('egoing');
+document.write(p1.introduce()+"<br />");
+ 
+var p2 = new Person('leezche');
+document.write(p2.introduce());
+// new는 객체에 대한 초기화를 한다. init
+// 한 번만 메소드를 정의했고, 그 이후 다시 정의하지 않아도 된다 
