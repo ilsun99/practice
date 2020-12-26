@@ -1,0 +1,116 @@
+//* prototype 
+// 객체지향에 있어서 아주 중요한 개념 
+// 객체의 원형이라는 의미, 이를 통해 상속이라는 기능이 가능 
+// 함수는 객체다. 생성자로 사용될 함수도 객체다. 
+// 객체는 속성을 갖는데, prototype은 그 용도가 약속된 특수한 속성이다. 
+// prototype에 저장된 속성은 생성자를 통해 객체가 만들어질 때 객체에 연결됨 
+
+function Ultra(){}
+Ultra.prototype.ultraProp = true;
+ 
+function Super(){}
+Super.prototype = new Ultra();
+ 
+function Sub(){}
+Sub.prototype = new Super();
+ 
+var o = new Sub();
+console.log(o.ultraProp);
+
+// 울트라라는 최상위 객체, 그 다음 슈퍼, 그 다음 서브가 있음 
+// 이 계층대로 상속을 받고, 울트라 안에 ultraprop라는 값이 true로 정의된 것 
+// 서브를 보았을 때 ultraprop가 없기 때문에 슈퍼와 울트라를 차례로 봄 
+
+// 생성자는 기본적으로 함수다. 
+// 함수를 호출할 때 new를 붙이면 생성자가 되는 것 
+// 이렇게 실행된 함수는 새로운 객체를 만들어 리턴하기 때문에 o라는 변수 안에는 생성자를 통해 만들어진 객체가 들어감 
+// 비어있는 객체를 생성하는 것에서 나아가 객체를 만들 때 그 객체가 가져야하는 속성을 갖고 있게 할 수 있다. 
+// 어떤 객체의 원형은 prototype이라는 속성에 저장되어 있다. 
+// 서브라는 함수는 객체기 때문에 속성을 가질 수 있는데, 이 속성이 prototype 
+// 이 prototype안에는 어떠한 객체가 저장되어 있다. 
+// new를 이용해서 객체를 생성하게 되면 prototype에 정의된 객체를 리턴해준다. 
+
+func.prototype.name = 'egoing' 
+
+var o = new func();
+// o 에는 func {name: "egoing"} 이라는 객체가 저장됨 
+
+
+// new 서브를 하게 되면 서브라는 생성자의 프로토타입이 거기에 들어간다. 
+// 서브라는 생성자의 프로토타입 값은 new super이다. 
+// new super를 하면 다시 슈퍼라는 생성자의 프로토타입 값을 받는다. 
+// 슈퍼 생성자의 프로토타입 값으로 new Ultra를 준 것 
+// 울트라라는 생성자로 인해 만들어진 객체가 담긴다. 
+// 울트라의 프로토타입 값은 ultraprop가 있다. 
+// 이러한 개념을 프로토타입 체인이라고 한다.
+
+// 경우 1
+function Ultra(){}
+Ultra.prototype.ultraProp = true;
+ 
+function Super(){}
+Super.prototype = new Ultra();
+ 
+function Sub(){}
+Sub.prototype = new Super();
+
+var o = new Sub();
+o.ultraProp = 1;
+console.log(o.ultraProp); // 1 
+
+// 경우 2 
+function Ultra(){}
+Ultra.prototype.ultraProp = true;
+ 
+function Super(){}
+Super.prototype = new Ultra();
+ 
+function Sub(){}
+Sub.prototype = new Super();
+Sub.prototype.ultraProp = 2; 
+
+var o = new Sub();
+console.log(o.ultraProp); // 2
+
+// 경우 3
+function Ultra(){}
+Ultra.prototype.ultraProp = true;
+ 
+function Super(){}
+Super.prototype = new Ultra();
+ 
+function Sub(){}
+var s = new Super();
+s.ultraProp = 3; 
+Sub.prototype = s;
+
+var o = new Sub();
+console.log(o.ultraProp); // 3
+
+// 경우 4
+function Ultra(){}
+Ultra.prototype.ultraProp = true;
+ 
+function Super(){}
+var t = new Ultra();
+t.ultraProp = 4; // 이 부분을 없애면 true가 산출된다. ultraProp라는 값을 갖고 있지 않으면 Ultra를 확인한다. 
+Super.prototype = t;
+ 
+function Sub(){}
+var s = new Super();
+Sub.prototype = s;
+
+var o = new Sub();
+console.log(o.ultraProp); // 4
+
+// 정리 
+// 객체 o에서 ultraProp를 찾는다.
+// 없다면 Sub.prototype.ultraProp를 찾는다.
+// 없다면 Super.prototype.ultraProp를 찾는다.
+// 없다면 Ultra.prototype.ultraProp를 찾는다.
+
+
+// 어떠한 객체 슈퍼를 서브가 상속받고 싶다면 슈퍼의 프로토타입에 할당된 객체는 상속받고자 하는 객체를 담아야 한다. 
+// 상속받고자하는 슈퍼 생성자의 프로토타입을 넣으면 하위 객체에 기능을 추가하면 부모에게 영향을 줄 수 있다. 
+// 어떤 객체를 상속받을 때는 상속받고자 하는 객체의 프로토타입을 사용하는 것이 아니라 
+// 그 프로토타입을 통해 만들어진 복제본을 객체로 사용해야 한다. 
