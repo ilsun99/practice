@@ -1,0 +1,16 @@
+//* 상속 inheritance
+// 객체를 그대로 물려받아 새로운 객체를 만들 수 있다. 
+// 기존 로직을 수정하고 변경해서 파생된 새로운 객체를 만들 수 있게 해준다. 
+
+function Person(name) {
+    this.name = name;
+    this.introduce = function() {
+        return 'my name is ' + this.name;
+    }
+}
+var p1 = new Person('ilsun');
+document.write(p1.introduce()); 
+
+// practice3 참조
+// 이번 토픽에서는 상속의 사용법만
+// 프로토타입을 배울 때 좀 더 

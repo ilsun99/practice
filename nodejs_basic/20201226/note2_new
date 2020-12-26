@@ -78,6 +78,8 @@ p2.introduce = function(){
 document.write(p2.introduce());
 // p1과 p2에서 중복이 일어나고 있다. 
 
+
+
 function Person(name){
     this.name = name;
     this.introduce = function(){
