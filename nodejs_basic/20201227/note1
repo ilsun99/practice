@@ -1,0 +1,65 @@
+//* 표준 내장 객체의 확장 
+// 자바스크립트가 기본적으로 가지고 있는 객체 
+// 프로그래밍을 하는 데에 기본적으로 필요한 도구들 
+// Object, Function, Array, String, Boolean, Number, Math, Date, RegExp 
+// 우리가 직접 정의하는 객체는 사용자 정의 객체 
+
+// 내장객체의 확장 
+
+var arr = new Array('seoul','new york','ladarkh','pusan', 'Tsukuba');
+function getRandomValueFromArray(arr){
+    var index = Math.floor(arr.length*Math.random());
+    return arr[index]; 
+}
+console.log(getRandomValueFromArray(arr));
+
+
+Array.prototype.random = function(){
+    var index = Math.floor(this.length*Math.random());
+    return this[index];
+}
+var arr = new Array('seoul','new york','ladarkh','pusan', 'Tsukuba');
+console.log(arr.random());
+
+// 모든 배열이 가져야 할 로직을 직접 만들 수 있다. 
+
+//* Object 
+// Object 객체는 객체의 가장 기본적인 형태를 가진 객체다. 
+// 다시 말해 아무것도 상속받지 않는 순수한 객체다. 
+// 자바스크립트는 값을 저장하는 기본 단위로 Object를 사용한다. 
+// 동시에 자바스트립트의 모든 객체는 Object를 상속받는다. 
+// 때문에 Object를 확장하면 모든 객체가 접근할 수 있는 API를 만들 수 있다. 
+
+// Object API의 사용법 
+// prototype이 붙은 것과 안 붙은 것의 차이 
+// 안 붙은 것: 이때 object는 생성자 함수이다. 
+// 붙은 것: 이때 메소드는 프로토타입의 소속이다. 
+// new Object를 실행하는 순간 객체를 만들고, 그 객체는 프로토타입에 저장된 객체를 갖는다. 
+// 따라서 어떤 객체를 생성하고 그 객체에 대한 메소드로 사용한다. 
+// object가 가진 프로토타입의 메소드들은 모든 객체가 공통적으로 갖는다. 
+
+// Object 객체의 확장 
+
+Object.prototype.contain = function(needle) {
+    for(var name in this){
+        if(this[name] === needle){
+            return true;
+        }
+    }
+    return false;
+}
+var o = {'name':'egoing', 'city':'seoul'}
+console.log(o.contain('egoing'));
+var a = ['egoing','leezche','grapittie'];
+console.log(a.contain('leezche'));
+
+// 이런 확장은 모든 객체에 영향을 주기 때문에 위험할 수 있다.
+// contain이 새로 만든 객체에 포함될 수 있다. 
+// object에 속성을 추가하는 것은 신중해야 한다. 
+// 모든 객체에 영향을 주는 객체에 변화를 주면 위험해질 수 있다. 
+// a.hasOwnProperty(name) 를 사용하면 문제를 해결할 수 있다. 
+
+if(a.hasOwnProperty(name)){
+    console.log(name);
+}
+// 전달된 인자가 해당 객체가 가지고 있는 것인지 확인을 해준다. 
