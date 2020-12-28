@@ -1,0 +1,22 @@
+{
+  "name": "20201228",
+  "version": "1.0.0",
+  "description": "practice",
+  "main": "pretty.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilsun99/practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilsun99/practice/issues"
+  },
+  "homepage": "https://github.com/ilsun99/practice#readme",
+  "dependencies": {
+    "underscore": "^1.12.0"
+  }
+}

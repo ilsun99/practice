@@ -1,0 +1,1 @@
+function hello(l){console("hello"+l)}hello("ilsun");
