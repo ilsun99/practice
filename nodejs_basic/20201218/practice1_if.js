@@ -64,3 +64,5 @@ for (var i = 0; i < 10; i = i + 1) {
     document.write("coding everybody" + i + "<br />");
   }
 }
+
+// or은 참이 앞, and는 거짓이 앞에 오면 좋다.

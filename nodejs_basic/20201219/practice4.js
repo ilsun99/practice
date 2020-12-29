@@ -38,3 +38,11 @@ if (id === "ilsun") {
 } else {
   alert("login fail");
 }
+
+//함수 - 입력값, 함수식, 산출값
+function num(arg4, arg5) {
+  return arg4 + arg5;
+}
+
+num(4, 5);
+// 9
