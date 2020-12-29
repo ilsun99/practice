@@ -4,6 +4,43 @@ const express = require("express");
 var app = express();
 // 기본 형식
 
+app.use(express.static("public"));
+// 미들웨어 함수를 사용
+
+app.get("/dynamic", function (req, res) {
+  var lis = "";
+  for (var i = 0; i < 5; i++) {
+    lis = lis + "<li>coding</li>";
+  }
+  var time = Date();
+  var output = `
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    hello, Dynamic !
+    <ul>
+    ${lis}
+    </ul>
+    ${time}
+  </body>
+</html>`;
+  res.send(output);
+});
+// html 여러 줄을 쓰는 건 역슬래시를 붙이면 가능하다.
+// 하지만 가독성이 좋지 않아서 잘 쓰지 않는다.
+// 포매티드 텍스트라는 기능 사용 ``
+// 동적으로 파일을 처리하는 경우 접속을 끊었다가 다시 연결해야 함
+// 문자 안에 중괄호를 넣는 방법 ${}
+
+app.get("/route", function (req, res) {
+  res.send('hellow Router, <img src="/윤.PNG">');
+});
+// public에 정적인 파일을 가져다 놓으면 사용할 수 있게 된다
+
 app.get("/", function (req, res) {
   res.send("Hello home page");
 });
