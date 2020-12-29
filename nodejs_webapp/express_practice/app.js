@@ -3,9 +3,18 @@
 const express = require("express");
 var app = express();
 // 기본 형식
+app.set("view engine", "jade");
+app.set("views", "./views");
+app.locals.pretty = true;
+// 템플릿엔진 연결
 
 app.use(express.static("public"));
 // 미들웨어 함수를 사용
+
+app.get("/template", function (req, res) {
+  res.render("temp", { time: Date(), _title: "Jade" });
+});
+// 템플릿이라는 경로로 들어온 사용자에게 temp라는 파일을 렌더링한다.
 
 app.get("/dynamic", function (req, res) {
   var lis = "";
