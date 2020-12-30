@@ -1,15 +1,55 @@
 // entry application, 최초의 진입점
 
 const express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
 // 기본 형식
 app.set("view engine", "jade");
 app.set("views", "./views");
 app.locals.pretty = true;
 // 템플릿엔진 연결
-
 app.use(express.static("public"));
 // 미들웨어 함수를 사용
+app.use(bodyParser.urlencoded({ extended: false }));
+// 바디파서 사용
+
+app.get("/topic/:id", function (req, res) {
+  var topics = ["javascript is ...", "nodejs is...", "express is..."];
+  var output = `
+  <a href="/topic?id=0">javascript</a><br>
+  <a href="/topic?id=1">nodejs</a><br>
+  <a href="/topic?id=2">express</a><br>
+  ${topics[req.params.id]}
+  `;
+
+  res.send(output);
+});
+// 쿼리스트링 부분
+// 요청인 req값으로 요청 정보가 들어오게 된다.
+// 쿼리값은 url에서 &로 구분
+
+app.get("/topic/:id/:mode", function (req, res) {
+  res.send(req.params.id + "," + req.params.mode);
+});
+// 시멘틱 url은 query를 params로 변경
+
+app.get("/form", function (req, res) {
+  res.render("form");
+});
+app.get("/form_receiver", function (req, res) {
+  var title = req.query.title;
+  var description = req.query.description;
+  res.send(title + "," + description);
+});
+// jade와 연동해서 form을 받고, url을 생성하는 역할
+// jade의 메소드를 get으로 바꾸어야 한다.
+
+app.post("/form_receiver", function (req, res) {
+  var title = req.body.title;
+  var description = req.body.description;
+  res.send(title + "," + description);
+});
+// post 방식으로 전달했을 때 받아주는 코드
 
 app.get("/template", function (req, res) {
   res.render("temp", { time: Date(), _title: "Jade" });

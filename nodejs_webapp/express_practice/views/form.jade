@@ -1,0 +1,19 @@
+doctype html 
+html
+    head    
+        meta 
+    body
+        form(action= '/form_receiver' method= 'post')
+            p
+                input(type="text" name='title')
+            p
+                textarea(name='description')
+            p
+                input(type= 'submit')
+
+
+
+
+// 어떤 태그의 속성을 표시하고 싶으면 태그 뒤에 괄호 
+// post면 데이터를 전송하는 방식이 url이 아니라 다른 방식임
+// 그래서 똑같은 url에 쿼리스트링이 붙지 않게 됨 
