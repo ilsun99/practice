@@ -1,0 +1,46 @@
+//* MySQL
+// 관계형 베이스의 특징 
+// - 데이터를 표의 형태로 표현해준다. 
+// - 스프레드 시트와 비슷하다. 
+
+// MySQL의 구조 
+// 표: 데이터를 기록하는 최종적인 곳 
+// -> 관계형 데이터베이스는 엑셀과 비슷한 구조 
+// -> 표가 많아지면 정리할 필요가 있다. 
+// 데이터베이스(스키마): 연관된 표들을 그룹핑하고 다른 것과 구분하는 일종의 폴더 
+// 데이터베이스 서버: 스키마 전체가 저장되어 있는 공간 
+
+// 데이터베이스 서버 접속 
+// /usr/local/mysql/bin  ./mysql -uroot -p
+// password 등록 
+
+// 데이터베이스(스키마) 만들기 
+// CREATE DATABASE 이름;
+// DROP DATABASE 이름; -> 삭제 
+// 위쪽 방향키 누르면 이전에 썼던 명령어 볼 수 있음 
+// SHOW DATABASES; 
+// USE 이름; -> 해당 DB에 접근 
+
+// 표 다루기 
+// SQL: Stuructured Query Language 
+// 데이터베이스 서버에 요청을 하는 언어 
+// table 표 
+// table에는 x축과 y축이 있다. 
+// x축, 수평을 row, record, 행이라는 표현을 씀 
+// y축, 수직을 column, 열이라는 표현을 씀 
+
+// 테이블의 생성 
+// 표를 만들기 위한 SQL문을 짤 일이 많지는 않다. 
+// cheet sheet를 사용하면 편함 
+// (11): 열한자리 숫자까지 
+// NOT NULL: 반드시 값이 있어야 한다. 
+// PRIMARY KEY: 중복을 방지한다. 
+
+mysql> CREATE TABLE info(
+    ->  id INT(11) NOT NULL AUTO_INCREMENT,
+    ->  title VARCHAR(100) NOT NULL,
+    ->  description TEXT NULL,
+    ->  created DATETIME NOT NULL,
+    ->  author VARCHAR(15) NULL,
+    ->  profile VARCHAR(200) NULL,
+    ->  PRIMARY KEY(id));
