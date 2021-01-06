@@ -34,3 +34,10 @@
 - git push origin 브랜치명
 - git branch -a
 - git checkout -b 브랜치명 origin/브랜치명
+
+
+init 
+add -A, commit 
+branch -M main
+remote add origin 링크 
+push -u origin main
