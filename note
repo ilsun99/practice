@@ -1,0 +1,36 @@
+// github 사용법 
+
+혼자 작업할 때 파일 관리
+
+- git init
+- git config —global [user.name](http://user.name) "이름"
+- git config —global [user.email](http://user.email) "메일주소"
+- git add -A
+- git commit -m "~"
+- git status
+- git log
+- git brach 브랜치명
+- git checkout 브랜치명
+- git merge 브랜치명
+- git rebase 브랜치명
+- git branch -D 브랜치명
+- git reset 코드 —hard
+- git revert 코드
+- git log —graph —all —decorate
+
+협업할 때 
+
+- 깃헙에 리퍼지토리 만들기
+- 링크 복사해서 연결
+- git remote
+- 원격 저장소 origin 생성
+- git push origin master
+- git clone 주소 링크
+- git fetch
+- git pull 원격명 브랜치명
+- git pull origin master
+- git checkout -b 브랜치명 (브랜치를 만들고 바로 체크아웃)
+- git branch
+- git push origin 브랜치명
+- git branch -a
+- git checkout -b 브랜치명 origin/브랜치명
