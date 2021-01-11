@@ -44,3 +44,34 @@ mysql> CREATE TABLE info(
     ->  author VARCHAR(15) NULL,
     ->  profile VARCHAR(200) NULL,
     ->  PRIMARY KEY(id));
+
+//* Create: INSERT 
+
+mysql> INSERT INTO topic2
+    -> (title, description, created, author, profile) 
+    -> VALUES('MySQL', 'MySQL is...', NOW(), 'ilsun', 'student' );
+
+mysql> SELECT * FROM topic2;
+// 표 가져오기 
+
+mysql> SELECT id, title, created, author FROM topic2;
+// 표 컬럼 선택해서 가져오기 
+
+mysql> SELECT id, title, created, author FROM topic2 WHERE author='yun';
+// 해당 정보 찾아주기 
+
+SELECT id, title, created, author FROM topic2 WHERE author='yun' ORDER BY
+ id DESC;
+ // 큰 값부터 정렬
+
+ SELECT id, title, created, author FROM topic2 WHERE author='yun' ORDER BY
+ id DESC LIMIT 2;
+ // 큰 값부터 정렬, 두 개까지만 불러오기 
+
+
+//* Update: UPDATE 
+UPDATE topic2 SET description='ORACLE is...' WHERE id=2;
+// WHERE을 빼먹으면 다 바뀌어버림 
+
+//* Delete: DELETE 
+DELETE FROM topic WHERE id = 2;
