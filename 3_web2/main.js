@@ -15,35 +15,53 @@ var app = http.createServer(function (req, res) {
 
   if (pathname === "/") {
     if (queryData.id === undefined) {
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, data) {
-        var title = "welcome";
+      fs.readdir("./data", function (err, filelist) {
+        var title = "welcome Homepage";
         var description = "hello node.js";
+        var list = "<ul>";
+
+        var i = 0;
+        while (i < filelist.length) {
+          list =
+            list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+          i = i + 1;
+        }
+        list = list + "</ul>";
+
         var template = `
-      <!doctype html>
-    <html>
-    <head>
-      <title>WEB1 - ${title}</title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-      <h1><a href="/">WEB</a></h1>
-      <ul>
-        <li><a href="/?id=html">HTML</a></li>
-        <li><a href="/?id=css">CSS</a></li>
-        <li><a href="/?id=javascript">Javascript</a></li>
-      </ul>
-      <h2>${title}</h2>
-      <p>${description}</p>
-    </body>
-    </html>`;
+        <!doctype html>
+      <html>
+      <head>
+        <title>WEB1 - ${title}</title>
+        <meta charset="utf-8">
+      </head>
+      <body>
+        <h1><a href="/">WEB</a></h1>
+        ${list}
+        <h2>${title}</h2>
+        <p>${description}</p>
+      </body>
+      </html>`;
         res.writeHead(200);
         res.end(template);
       });
     } else {
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, data) {
-        var title = queryData.id;
-        var description = data;
-        var template = `
+      fs.readdir("./data", function (err, filelist) {
+        var title = "welcome Homepage";
+        var description = "hello node.js";
+        var list = "<ul>";
+
+        var i = 0;
+        while (i < filelist.length) {
+          list =
+            list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+          i = i + 1;
+        }
+        list = list + "</ul>";
+        fs.readFile(`data/${queryData.id}`, "utf8", function (err, data) {
+          var title = queryData.id;
+          var description = data;
+          var template = `
       <!doctype html>
     <html>
     <head>
@@ -52,17 +70,14 @@ var app = http.createServer(function (req, res) {
     </head>
     <body>
       <h1><a href="/">WEB</a></h1>
-      <ul>
-        <li><a href="/?id=html">HTML</a></li>
-        <li><a href="/?id=css">CSS</a></li>
-        <li><a href="/?id=javascript">Javascript</a></li>
-      </ul>
+      ${list}
       <h2>${title}</h2>
       <p>${description}</p>
     </body>
     </html>`;
-        res.writeHead(200);
-        res.end(template);
+          res.writeHead(200);
+          res.end(template);
+        });
       });
     }
   } else {
