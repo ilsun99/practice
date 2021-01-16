@@ -3,33 +3,8 @@ var fs = require("fs");
 var url = require("url");
 var qs = require("querystring");
 // 여기서 url은 모듈을 받아온 것
-
-function templateHTML(title, list, body, control) {
-  return `
-  <!doctype html>
-<html>
-<head>
-  <title>WEB1 - ${title}</title>
-  <meta charset="utf-8">
-</head>
-<body>
-  <h1><a href="/">WEB</a></h1> 
-  ${list}
-  ${control}
-  ${body}
-</body>
-</html>`;
-}
-function templateList(filelist) {
-  var list = "<ul>";
-  var i = 0;
-  while (i < filelist.length) {
-    list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
-    i = i + 1;
-  }
-  list = list + "</ul>";
-  return list;
-}
+var template = require("./lib/template.js");
+var path = require("path");
 
 var app = http.createServer(function (req, res) {
   var _url = req.url;
@@ -46,24 +21,26 @@ var app = http.createServer(function (req, res) {
       fs.readdir("./data", function (err, filelist) {
         var title = "welcome Homepage";
         var description = "hello node.js";
-        var list = templateList(filelist);
-        var template = templateHTML(
+        var list = template.list(filelist);
+        var html = template.HTML(
           title,
           list,
           `<h2>${title}</h2>${description}`,
           `<a href="/create">create</a>`
         );
         res.writeHead(200);
-        res.end(template);
+        res.end(html);
       });
     } else {
       fs.readdir("./data", function (err, filelist) {
-        fs.readFile(`data/${queryData.id}`, "utf8", function (err, data) {
+        var filteredId = path.parse(queryData.id).base;
+        // 보안을 위한 코드, ../ 이 부분이 세탁되고 path만 남음
+        fs.readFile(`data/${filteredId}`, "utf8", function (err, data) {
           var title = queryData.id;
-          var list = templateList(filelist);
+          var list = template.list(filelist);
           var description = data;
 
-          var template = templateHTML(
+          var html = template.HTML(
             title,
             list,
             `<h2>${title}</h2>${description}`,
@@ -76,15 +53,15 @@ var app = http.createServer(function (req, res) {
           );
 
           res.writeHead(200);
-          res.end(template);
+          res.end(html);
         });
       });
     }
   } else if (pathname === "/create") {
     fs.readdir("./data", function (err, filelist) {
       var title = "WEB create";
-      var list = templateList(filelist);
-      var template = templateHTML(
+      var list = template.list(filelist);
+      var html = template.HTML(
         title,
         list,
         `<form action="/create_process" method="post">
@@ -100,7 +77,7 @@ var app = http.createServer(function (req, res) {
         ""
       );
       res.writeHead(200);
-      res.end(template);
+      res.end(html);
     });
   } else if (pathname === "/create_process") {
     var body = "";
@@ -119,12 +96,13 @@ var app = http.createServer(function (req, res) {
     });
   } else if (pathname === "/update") {
     fs.readdir("./data", function (err, filelist) {
-      fs.readFile(`data/${queryData.id}`, "utf8", function (err, data) {
+      var filteredId = path.parse(queryData.id).base;
+      fs.readFile(`data/${filteredId}`, "utf8", function (err, data) {
         var title = queryData.id;
-        var list = templateList(filelist);
+        var list = template.list(filelist);
         var description = data;
 
-        var template = templateHTML(
+        var html = template.HTML(
           title,
           list,
           `
@@ -143,7 +121,7 @@ var app = http.createServer(function (req, res) {
           // id 는 유지하면서 타이틀을 바뀐 값으로 전송
         );
         res.writeHead(200);
-        res.end(template);
+        res.end(html);
       });
     });
   } else if (pathname === "/update_process") {
@@ -172,7 +150,8 @@ var app = http.createServer(function (req, res) {
     req.on("end", function () {
       var post = qs.parse(body);
       var id = post.id;
-      fs.unlink(`data/${id}`, function (err) {
+      var filteredId = path.parse(id).base;
+      fs.unlink(`data/${filteredId}`, function (err) {
         res.writeHead(302, { location: `/` });
         res.end();
       });
