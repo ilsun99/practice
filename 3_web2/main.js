@@ -3,6 +3,32 @@ var fs = require("fs");
 var url = require("url");
 // 여기서 url은 모듈을 받아온 것
 
+function templateHTML(title, list, body) {
+  return `
+  <!doctype html>
+<html>
+<head>
+  <title>WEB1 - ${title}</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1><a href="/">WEB</a></h1>
+  ${list}
+  ${body}
+</body>
+</html>`;
+}
+function templateList(filelist) {
+  var list = "<ul>";
+  var i = 0;
+  while (i < filelist.length) {
+    list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+    i = i + 1;
+  }
+  list = list + "</ul>";
+  return list;
+}
+
 var app = http.createServer(function (req, res) {
   var _url = req.url;
   var queryData = url.parse(_url, true).query;
@@ -18,63 +44,28 @@ var app = http.createServer(function (req, res) {
       fs.readdir("./data", function (err, filelist) {
         var title = "welcome Homepage";
         var description = "hello node.js";
-        var list = "<ul>";
-
-        var i = 0;
-        while (i < filelist.length) {
-          list =
-            list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
-          i = i + 1;
-        }
-        list = list + "</ul>";
-
-        var template = `
-        <!doctype html>
-      <html>
-      <head>
-        <title>WEB1 - ${title}</title>
-        <meta charset="utf-8">
-      </head>
-      <body>
-        <h1><a href="/">WEB</a></h1>
-        ${list}
-        <h2>${title}</h2>
-        <p>${description}</p>
-      </body>
-      </html>`;
+        var list = templateList(filelist);
+        var template = templateHTML(
+          title,
+          list,
+          `<h2>${title}</h2>${description}`
+        );
         res.writeHead(200);
         res.end(template);
       });
     } else {
       fs.readdir("./data", function (err, filelist) {
-        var title = "welcome Homepage";
-        var description = "hello node.js";
-        var list = "<ul>";
-
-        var i = 0;
-        while (i < filelist.length) {
-          list =
-            list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
-          i = i + 1;
-        }
-        list = list + "</ul>";
         fs.readFile(`data/${queryData.id}`, "utf8", function (err, data) {
           var title = queryData.id;
+          var list = templateList(filelist);
           var description = data;
-          var template = `
-      <!doctype html>
-    <html>
-    <head>
-      <title>WEB1 - ${title}</title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-      <h1><a href="/">WEB</a></h1>
-      ${list}
-      <h2>${title}</h2>
-      <p>${description}</p>
-    </body>
-    </html>`;
+
+          var template = templateHTML(
+            title,
+            list,
+            `<h2>${title}</h2>${description}`
+          );
+
           res.writeHead(200);
           res.end(template);
         });
