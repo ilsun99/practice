@@ -1,12 +1,13 @@
-var http = require("http");
-var fs = require("fs");
-var url = require("url");
-var qs = require("querystring");
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
 // 여기서 url은 모듈을 받아온 것
-var template = require("./lib/template.js");
-var path = require("path");
+const qs = require("querystring");
+const template = require("./lib/template.js");
+const path = require("path");
+const sanitizeHtml = require("sanitize-html");
 
-var app = http.createServer(function (req, res) {
+const app = http.createServer(function (req, res) {
   var _url = req.url;
   var queryData = url.parse(_url, true).query;
   var pathname = url.parse(_url, true).pathname;
@@ -37,17 +38,19 @@ var app = http.createServer(function (req, res) {
         // 보안을 위한 코드, ../ 이 부분이 세탁되고 path만 남음
         fs.readFile(`data/${filteredId}`, "utf8", function (err, data) {
           var title = queryData.id;
+          var sanitizedTitle = sanitizeHtml(title);
+          var sanitizedDescription = sanitizeHtml(description);
           var list = template.list(filelist);
           var description = data;
 
           var html = template.HTML(
-            title,
+            sanitizedTitle,
             list,
-            `<h2>${title}</h2>${description}`,
+            `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
             `<a href="/create">create</a> 
-            <a href="/update?id=${title}">update</a>
+            <a href="/update?id=${sanitizedTitle}">update</a>
             <form action="delete_process" method="post">
-              <input type="hidden" name="id" value="${title}">
+              <input type="hidden" name="id" value="${sanitizedTitle}">
               <input type="submit" value="delete">
             </form>`
           );
