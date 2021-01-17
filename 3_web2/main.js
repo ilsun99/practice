@@ -54,7 +54,6 @@ const app = http.createServer(function (req, res) {
               <input type="submit" value="delete">
             </form>`
           );
-
           res.writeHead(200);
           res.end(html);
         });
@@ -132,7 +131,6 @@ const app = http.createServer(function (req, res) {
     req.on("data", function (data) {
       body = body + data;
     });
-    // 전송되는 데이터가 많은 경우 사용하는 방법,
     req.on("end", function () {
       var post = qs.parse(body);
       var id = post.id;
