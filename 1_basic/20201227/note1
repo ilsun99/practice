@@ -49,14 +49,14 @@ Object.prototype.contain = function(needle) {
     return false;
 }
 var o = {'name':'egoing', 'city':'seoul'}
+// o.prototype.contain -> x 
 console.log(o.contain('egoing'));
 var a = ['egoing','leezche','grapittie'];
 console.log(a.contain('leezche'));
 
-// 이런 확장은 모든 객체에 영향을 주기 때문에 위험할 수 있다.
+// 이런 확장은 모든 객체에 영향을 준다.
 // contain이 새로 만든 객체에 포함될 수 있다. 
 // object에 속성을 추가하는 것은 신중해야 한다. 
-// 모든 객체에 영향을 주는 객체에 변화를 주면 위험해질 수 있다. 
 // a.hasOwnProperty(name) 를 사용하면 문제를 해결할 수 있다. 
 
 if(a.hasOwnProperty(name)){
